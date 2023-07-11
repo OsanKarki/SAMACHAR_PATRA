@@ -22,7 +22,6 @@ class _CategoryNewsPageState extends State<CategoryNewsPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(Get.arguments);
     return Scaffold(
       appBar: AppBar(
         title: Text("${Get.arguments.toString().capitalize}"),

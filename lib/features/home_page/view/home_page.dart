@@ -18,6 +18,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController searchController = TextEditingController();
+    String searchQuery = "";
     return Scaffold(
         backgroundColor: const Color(0xff1C1E21),
         body: SafeArea(
@@ -56,42 +58,38 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: Container(
-                    width: double.infinity,
-                    height: 50,
-                    decoration: BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.circular(15)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              const Icon(
-                                Icons.search_outlined,
-                                color: Colors.white38,
-                              ),
-                              Text(
-                                "Search",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium
-                                    ?.copyWith(color: Colors.white60),
-                              ),
-                            ],
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: TextFormField(
+                      controller: searchController,
+                      onChanged: (value) {
+                        searchQuery = value;
+                      },
+                      decoration: InputDecoration(
+                        filled: true,
+                        suffixIcon: GestureDetector(
+                            onTap: () {
+                              if (searchQuery.isNotEmpty) {
+                                Get.toNamed(AppRoutes.searchPage,
+                                    arguments: searchQuery);
+                              }
+                            },
+                            child: Icon(Icons.search_outlined)),
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                        hintText: "Search...",
+                        hintStyle: const TextStyle(color: Colors.grey),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(11),
+                            borderSide: const BorderSide(
+                                color: Colors.cyanAccent, width: 1.6)),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(
+                            width: 1.6,
                           ),
-                          const Icon(
-                            Icons.filter_list_sharp,
-                            color: Colors.white38,
-                          )
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                ),
+                    )),
                 SizedBox(
                   height: 60,
                   child: GetBuilder<NewsCategoryController>(
@@ -101,8 +99,7 @@ class HomePage extends StatelessWidget {
                         return result.fold(
                           (l) => ErrorView(l.value),
                           (categoryList) {
-
-                           final  newsCategoryList = categoryList
+                            final newsCategoryList = categoryList
                                 .map((category) => category.category)
                                 .toSet()
                                 .toList();

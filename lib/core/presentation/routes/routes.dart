@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:newsapp_restapi/features/category/bindings/category_news_bindings.dart';
 import 'package:newsapp_restapi/features/category/view/catergory_news_page.dart';
+import 'package:newsapp_restapi/features/search/bindings/search_bindings.dart';
+import 'package:newsapp_restapi/features/search/view/searching_page.dart';
 import '../../../features/home_page/bindings/news_bindings.dart';
 import '../../../features/home_page/view/home_page.dart';
 import '../../../features/webview/view/web_view_page.dart';
@@ -9,6 +11,7 @@ class AppRoutes {
   static String homePage = "/homePage";
   static String webViewPage = "/webViewPage";
   static String categoryNewsPage = "/categoryNewsPage";
+  static String searchPage = "/searchPage";
 
   static final routes = [
     GetPage(
@@ -18,5 +21,6 @@ class AppRoutes {
         name: categoryNewsPage,
         page: () => const CategoryNewsPage(),
         binding: CategoryNewsBindings()),
+    GetPage(name: searchPage, page: () => const SearchingPage(),binding:SearchBindings() ),
   ];
 }

@@ -81,7 +81,6 @@ class NewsInfoRepository {
       }
     }
   }
-
 }
 
 class NetworkException {
